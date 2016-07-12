@@ -17,7 +17,7 @@ downloadPBDB<-function(Taxa,StartInterval="Pliocene",StopInterval="Pleistocene")
 	Taxa<-paste(Taxa,collapse=",")
 	URL<-paste("https://paleobiodb.org/data1.2/occs/list.csv?base_name=",Taxa,"&interval=",StartInterval,",",StopInterval,"&show=coords,paleoloc,phylo&limit=all",sep="")
 	GotURL<-getURL(URL)
-	File<-read.csv(text=GotURL,header=T)
+	File<-read.csv(text=GotURL,header=TRUE)
 	return(File)
 	}
 
@@ -26,7 +26,7 @@ downloadTime<-function(Timescale) {
 	Timescale<-gsub(" ","%20",Timescale)
 	URL<-paste("https://dev.macrostrat.org/api/defs/intervals?format=csv&timescale=",Timescale,sep="")
 	GotURL<-getURL(URL)
-	Intervals<-read.csv(text=GotURL,header=T)
+	Intervals<-read.csv(text=GotURL,header=TRUE)
 	Midpoint<-apply(Intervals[,c("t_age","b_age")],1,median)
 	Intervals<-cbind(Intervals,Midpoint)
 	rownames(Intervals)<-Intervals[,"name"]
